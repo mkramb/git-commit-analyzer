@@ -3,10 +3,11 @@ import { Readable } from 'stream';
 import { simpleGit } from 'simple-git';
 import createDebug from 'debug';
 
-const debug = createDebug('service/export-history');
+const debug = createDebug('services/export-history');
 const MAX_CONCURRENCY = +(process.env.MAX_CONCURRENCY ?? 10);
 
 export interface CommitHistory {
+  hash: string;
   date: string;
   author_name: string;
   author_email: string;
@@ -39,6 +40,7 @@ export const exportHistory = async (repositoryName: string, repositoryPath: stri
 
   for (const commit of history.all) {
     const info: CommitHistory = {
+      hash: commit.hash,
       date: commit.date,
       author_name: commit.author_name,
       author_email: commit.author_email,

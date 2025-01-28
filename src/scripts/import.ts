@@ -1,10 +1,7 @@
 import yargs from 'yargs/yargs';
-import createDebug from 'debug';
 
-import { exportHistory } from '../services/extract-history';
-import { importDocument } from '../services/import-document';
-
-const debug = createDebug('scripts/import');
+import { exportHistory } from '../services/extract-history.js';
+import { importDocument } from '../services/import-document.js';
 
 const { repositoryName, repositoryPath } = yargs(process.argv.slice(2))
   .options({
@@ -18,11 +15,13 @@ const importRepository = async (): Promise<void> => {
 
   try {
     for await (const commit of commitStream) {
-      importDocument(commit);
+      importDocument(commit, repositoryName);
     }
   } catch (error) {
     console.error('Error:', error);
   }
+
+  console.log('Completed!');
 };
 
 importRepository();

@@ -27,6 +27,7 @@ Qdrant - vector database:
 ```
 docker compose up
 docker compose down
+rm -fr ./qdrant_data
 ```
 
 ## Usage

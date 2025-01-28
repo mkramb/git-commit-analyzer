@@ -1,5 +1,5 @@
 import fastify from 'fastify';
-import { queryRoute } from './routes/query';
+import { queryRoute } from './routes/query.js';
 
 const server = fastify();
 
