@@ -1,0 +1,26 @@
+{
+  "name": "git-commit-analyzer",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "pnpm clean && tsc -p tsconfig.json",
+    "clean": "shx rm -fr ./dist",
+    "import": "node dist/scripts/import.js",
+    "start": "node dist/server.js"
+  },
+  "dependencies": {
+    "debug": "4.4.0",
+    "fastify": "5.2.1",
+    "simple-git": "3.27.0",
+    "yargs": "17.7.2"
+  },
+  "devDependencies": {
+    "@types/debug": "4.1.12",
+    "@types/node": "22.12.0",
+    "@types/yargs": "17.0.33",
+    "prettier": "3.4.2",
+    "shx": "0.3.4",
+    "typescript": "5.7.3"
+  },
+  "packageManager": "pnpm@9.15.4"
+}
