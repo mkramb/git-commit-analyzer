@@ -14,9 +14,8 @@ export interface CommitHistory {
   message: string;
 }
 
-export const exportHistory = async (repositoryName: string, repositoryPath: string) => {
+export const exportHistory = async (repositoryPath: string) => {
   debug('Arguments', {
-    repositoryName,
     repositoryPath,
     MAX_CONCURRENCY,
   });

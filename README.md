@@ -35,5 +35,5 @@ rm -fr ./qdrant_data
 ### Importing a new repository
 
 ```
-pnpm run import --repositoryName "unique-name" --repositoryPath "local-path"
+pnpm run import --repositoryPath ../local-path
 ```

@@ -3,19 +3,21 @@ import yargs from 'yargs/yargs';
 import { exportHistory } from '../services/extract-history.js';
 import { importDocument } from '../services/import-document.js';
 
-const { repositoryName, repositoryPath } = yargs(process.argv.slice(2))
+const { repositoryPath } = yargs(process.argv.slice(2))
   .options({
-    repositoryName: { type: 'string', demandOption: true },
-    repositoryPath: { type: 'string', demandOption: true },
+    repositoryPath: {
+      type: 'string',
+      demandOption: true,
+    },
   })
   .parseSync();
 
 const importRepository = async (): Promise<void> => {
-  const commitStream = await exportHistory(repositoryName, repositoryPath);
+  const commitStream = await exportHistory(repositoryPath);
 
   try {
     for await (const commit of commitStream) {
-      importDocument(commit, repositoryName);
+      importDocument(commit);
     }
   } catch (error) {
     console.error('Error:', error);
