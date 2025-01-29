@@ -4,7 +4,7 @@ import { simpleGit } from 'simple-git';
 import createDebug from 'debug';
 
 const debug = createDebug('services:export-history');
-const MAX_CONCURRENCY = +(process.env.MAX_CONCURRENCY ?? 10);
+const GIT_OPERATIONS_MAX_CONCURRENCY = +(process.env.MAX_CONCURRENCY ?? 10);
 
 export interface CommitHistory {
   hash: string;
@@ -18,13 +18,13 @@ export interface CommitHistory {
 export const exportHistory = async (repositoryPath: string) => {
   debug('Arguments', {
     repositoryPath,
-    MAX_CONCURRENCY,
+    GIT_OPERATIONS_MAX_CONCURRENCY,
   });
 
   debug('Fetching git history');
 
   const git = simpleGit({
-    maxConcurrentProcesses: MAX_CONCURRENCY,
+    maxConcurrentProcesses: GIT_OPERATIONS_MAX_CONCURRENCY,
     baseDir: resolve(repositoryPath),
     binary: 'git',
   });
