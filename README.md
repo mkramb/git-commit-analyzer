@@ -52,6 +52,6 @@ DEBUG=services:* pnpm run import --repositoryPath ../platform/
 
 curl -X POST http://localhost:3000/query \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "Has anyone used bad language"}' \
+  -d '{"prompt": "Find commits related to performance improvements."}' \
 | jq -r '.content'
 ```
