@@ -14,15 +14,17 @@ const { repositoryPath } = yargs(process.argv.slice(2))
 
 const importRepository = async (): Promise<void> => {
   const commitStream = await exportHistory(repositoryPath);
+  const documentImport = [];
 
   try {
     for await (const commit of commitStream) {
-      importDocument(commit);
+      documentImport.push(importDocument(commit));
     }
   } catch (error) {
     console.error('Error:', error);
   }
 
+  await Promise.all(documentImport);
   console.log('Completed!');
 };
 

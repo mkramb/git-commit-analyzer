@@ -1,22 +1,17 @@
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { QueryResponse, queryStore } from '../services/query-store.js';
 
-export interface QueryParams {
-  text?: string;
+import { queryStore } from '../services/query-store.js';
+
+export interface QueryBody {
+  prompt: string;
 }
 
 export const queryRoute = async (
-  request: FastifyRequest<{ Querystring: QueryParams }>,
+  request: FastifyRequest<{ Body: QueryBody }>,
   reply: FastifyReply,
 ) => {
-  const query = request.query;
-  let results: QueryResponse[] = [];
+  const { prompt } = request.body;
+  const results = await queryStore(prompt);
 
-  if (query.text) {
-    results = await queryStore(query.text);
-  }
-
-  reply.code(200).send({
-    results,
-  });
+  reply.code(200).send(results);
 };

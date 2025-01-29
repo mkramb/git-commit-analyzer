@@ -3,7 +3,7 @@ import { Readable } from 'stream';
 import { simpleGit } from 'simple-git';
 import createDebug from 'debug';
 
-const debug = createDebug('services/export-history');
+const debug = createDebug('services:export-history');
 const MAX_CONCURRENCY = +(process.env.MAX_CONCURRENCY ?? 10);
 
 export interface CommitHistory {
@@ -12,6 +12,7 @@ export interface CommitHistory {
   author_name: string;
   author_email: string;
   message: string;
+  files: string[];
 }
 
 export const exportHistory = async (repositoryPath: string) => {
@@ -38,12 +39,24 @@ export const exportHistory = async (repositoryPath: string) => {
   const history = await git.log();
 
   for (const commit of history.all) {
+    if (!commit.hash) {
+      continue;
+    }
+
+    let changedFiles: string[] = [];
+
+    try {
+      const diffSummary = await git.diffSummary([`${commit.hash}^`, commit.hash]);
+      changedFiles = diffSummary.files.map((fileObj) => fileObj.file);
+    } catch (error) {}
+
     const info: CommitHistory = {
       hash: commit.hash,
       date: commit.date,
       author_name: commit.author_name,
       author_email: commit.author_email,
       message: commit.message,
+      files: changedFiles,
     };
 
     stream.push(info);

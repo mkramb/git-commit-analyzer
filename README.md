@@ -30,10 +30,26 @@ docker compose down
 rm -fr ./qdrant_data
 ```
 
+### Serve LLM locally
+
+```
+ollama run llama3.2
+ollama ps
+```
+
 ## Usage
 
 ### Importing a new repository
 
 ```
 pnpm run import --repositoryPath ../local-path
+```
+
+### Executing a query
+
+```
+curl -X POST http://localhost:3000/query \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Has anyone used bad language"}' \
+| jq -r '.content'
 ```
