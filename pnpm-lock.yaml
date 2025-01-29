@@ -17,6 +17,9 @@ importers:
       '@langchain/qdrant':
         specifier: 0.1.1
         version: 0.1.1(@langchain/core@0.3.36(openai@4.80.1(ws@8.18.0)(zod@3.24.1)))(typescript@5.7.3)
+      async:
+        specifier: 3.2.6
+        version: 3.2.6
       debug:
         specifier: 4.4.0
         version: 4.4.0
@@ -33,6 +36,9 @@ importers:
         specifier: 17.7.2
         version: 17.7.2
     devDependencies:
+      '@types/async':
+        specifier: 3.2.24
+        version: 3.2.24
       '@types/debug':
         specifier: 4.1.12
         version: 4.1.12
@@ -126,6 +132,9 @@ packages:
   '@sevinf/maybe@0.5.0':
     resolution: {integrity: sha512-ARhyoYDnY1LES3vYI0fiG6e9esWfTNcXcO6+MPJJXcnyMV3bim4lnFt45VXouV7y82F4x3YH8nOQ6VztuvUiWg==}
 
+  '@types/async@3.2.24':
+    resolution: {integrity: sha512-8iHVLHsCCOBKjCF2KwFe0p9Z3rfM9mL+sSP8btyR5vTjJRAqpBYD28/ZLgXPf0pjG1VxOvtCV/BgXkQbpSe8Hw==}
+
   '@types/debug@4.1.12':
     resolution: {integrity: sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ==}
 
@@ -189,6 +198,9 @@ packages:
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
+
+  async@3.2.6:
+    resolution: {integrity: sha512-htCUDlxyyCLMgaM3xXg0C0LW2xqfuQ6p05pCEIsXuyQ+a1koYKTuBMzRNwmybfLgvJDMd0r1LTn4+E0Ti6C2AA==}
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
@@ -840,6 +852,8 @@ snapshots:
 
   '@sevinf/maybe@0.5.0': {}
 
+  '@types/async@3.2.24': {}
+
   '@types/debug@4.1.12':
     dependencies:
       '@types/ms': 2.1.0
@@ -899,6 +913,8 @@ snapshots:
   ansi-styles@5.2.0: {}
 
   argparse@2.0.1: {}
+
+  async@3.2.6: {}
 
   asynckit@0.4.0: {}
 
