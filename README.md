@@ -64,3 +64,10 @@ curl -X POST http://localhost:3000/query \
   -d '{"prompt": "Provide a summary of most popular changes."}' \
 | jq -r '.content'
 ```
+
+```
+curl -X POST http://localhost:3000/query \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Give me the latest commit from every author."}' \
+| jq -r '.content'
+```
