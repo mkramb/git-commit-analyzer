@@ -54,7 +54,7 @@ DEBUG=app:* pnpm run import --repositoryPath ../platform/
 ```
 curl -X POST http://localhost:3000/query \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "Who made the most commits after 5h pm?"}' \
+  -d '{"prompt": "Who made the most commits after 5h pm BST?"}' \
 | jq -r '.content'
 ```
 
