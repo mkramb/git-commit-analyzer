@@ -47,10 +47,6 @@ DEBUG=app:* pnpm run import --repositoryPath ../platform/
 
 ### Executing a query
 
-# make sure server is start
-
-# via, pnpm run start
-
 ```
 curl -X POST http://localhost:3000/query \
   -H "Content-Type: application/json" \
