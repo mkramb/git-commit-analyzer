@@ -19,35 +19,42 @@ const { repositoryPath } = yargs(process.argv.slice(2))
   })
   .parseSync();
 
-const importRepository = async (): Promise<void> => {
+export const importRepository = async (): Promise<void> => {
+  debug('Starting repository import');
+
   const commitQueue = async.queue<CommitHistory[], Error>(async (batch) => {
     await importDocuments(batch);
-  }, IMPORT_BATCH_SIZE);
+  }, IMPORT_MAX_CONCURRENCY);
 
   let batch: CommitHistory[] = [];
 
-  const commitStream = exportHistory(repositoryPath);
+  try {
+    for await (const commit of exportHistory(repositoryPath)) {
+      batch.push(commit);
 
-  for await (const commit of commitStream) {
-    batch.push(commit);
+      if (batch.length >= IMPORT_BATCH_SIZE) {
+        await commitQueue.pushAsync([batch]);
+        batch = [];
+      }
 
-    if (batch.length >= IMPORT_BATCH_SIZE) {
-      commitQueue.push([batch]);
-      batch = [];
+      if (commitQueue.length() >= IMPORT_MAX_CONCURRENCY) {
+        debug('Waiting for queued items to be processed');
+        await commitQueue.drain();
+      }
     }
 
-    if (commitQueue.length() >= IMPORT_MAX_CONCURRENCY) {
-      debug('Waiting for queued items');
-      await commitQueue.drain();
+    if (batch.length > 0) {
+      await commitQueue.pushAsync([batch]);
     }
-  }
 
-  if (batch.length > 0) {
-    commitQueue.push([batch]);
+    await commitQueue.drain();
+    console.log('Completed!');
+  } catch (err) {
+    console.error('Import failed:', err);
+    process.exit(1);
   }
-
-  await commitQueue.drain();
-  console.log('Completed!');
 };
 
-importRepository();
+importRepository().catch((err) => {
+  console.error('Import failed:', err);
+});
