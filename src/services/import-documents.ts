@@ -17,7 +17,6 @@ export const importDocuments = async (commits: CommitHistory[]) => {
       `, with email "${commit.author_email}"`,
       `, on date "${commit.date}"`,
       `, with a message "${commit.message}"`,
-      `, where the following files were updated: \n${commit.files.map((file) => `- ${file}`).join('\n')}`,
     ].join('');
 
     documents.push(

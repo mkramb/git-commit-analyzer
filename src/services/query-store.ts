@@ -20,11 +20,11 @@ export interface QueryResponse {
 const PROMPT_TEMPLATE =
   process.env.PROMPT_TEMPLATE ??
   `
-  Use the following pieces of context, given between two character sets ">>>" and "<<<", to answer the question about the commit messages. Each commit message is in format of:
-  A commit was made by <author name> with email <author email>, on date <commit date>, with a message <commit message>, where the following files were updated <list of files>
+  Use the following pieces of context, given between two character sets ">>>" and "<<<", to answer the question about the commit messages.
+  Each commit message is in format of: A commit was made by "<author name>" with email "<author email>", on date "<commit date>", with a message "<commit message>"
   ----------------
   CONTEXT: >>> {context} <<<
-  ANSWER: (should be nicely formatted as plaintext)
+  ANSWER: (should be nicely formatted, as plaintext)
 `;
 
 export const queryStore = async (inputPrompt: string): Promise<QueryResponse> => {

@@ -11,7 +11,6 @@ export interface CommitHistory {
   author_name: string;
   author_email: string;
   message: string;
-  files: string[];
 }
 
 export async function* exportHistory(repositoryPath: string): AsyncGenerator<CommitHistory> {
@@ -24,7 +23,7 @@ export async function* exportHistory(repositoryPath: string): AsyncGenerator<Com
   });
 
   let page = 0;
-  const pageSize = 100;
+  const pageSize = 50;
 
   while (true) {
     debug(`Fetching commits, page: ${page}`);
@@ -48,19 +47,12 @@ export async function* exportHistory(repositoryPath: string): AsyncGenerator<Com
     for (const commit of logResult.all) {
       if (!commit.hash) continue;
 
-      let changedFiles: string[] = [];
-      try {
-        const diffSummary = await git.diffSummary([`${commit.hash}^`, commit.hash]);
-        changedFiles = diffSummary.files.map((fileObj) => fileObj.file);
-      } catch {}
-
       const info: CommitHistory = {
         hash: commit.hash,
         date: commit.date,
         author_name: commit.author_name,
         author_email: commit.author_email,
         message: commit.message,
-        files: changedFiles,
       };
 
       yield info;

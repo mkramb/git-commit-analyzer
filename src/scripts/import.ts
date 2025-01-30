@@ -7,8 +7,8 @@ import { importDocuments } from '../services/import-documents.js';
 
 const debug = createDebug('app:import');
 
-const IMPORT_BATCH_SIZE = +(process.env.IMPORT_BATCH_SIZE ?? 50);
-const IMPORT_MAX_CONCURRENCY = +(process.env.IMPORT_MAX_CONCURRENCY ?? 1);
+const IMPORT_BATCH_SIZE = +(process.env.IMPORT_BATCH_SIZE ?? 100);
+const IMPORT_MAX_CONCURRENCY = +(process.env.IMPORT_MAX_CONCURRENCY ?? 4);
 
 const { repositoryPath } = yargs(process.argv.slice(2))
   .options({
