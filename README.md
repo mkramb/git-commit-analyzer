@@ -47,19 +47,20 @@ DEBUG=app:* pnpm run import --repositoryPath ../platform/
 
 ### Executing a query
 
-> make sure server is start
-> via, pnpm run start
+# make sure server is start
+
+# via, pnpm run start
 
 ```
 curl -X POST http://localhost:3000/query \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "Provide a summary of most popular changes."}' \
+  -d '{"prompt": "Who made the most commits after 5h pm?"}' \
 | jq -r '.content'
 ```
 
 ```
 curl -X POST http://localhost:3000/query \
   -H "Content-Type: application/json" \
-  -d '{"prompt": "Provide a summary of most popular changes.”}' \
+  -d '{"prompt": "Provide a summary of most popular changes."}' \
 | jq -r '.content'
 ```
