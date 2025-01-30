@@ -11,7 +11,7 @@ import createDebug from 'debug';
 import { vectorStore } from '../store.js';
 import { model } from '../ollama.js';
 
-const debug = createDebug('services:query-store');
+const debug = createDebug('app:query-store');
 
 export interface QueryResponse {
   content: string;

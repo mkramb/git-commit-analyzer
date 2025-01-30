@@ -42,7 +42,7 @@ ollama ps
 ### Importing a new repository
 
 ```
-DEBUG=services:* pnpm run import --repositoryPath ../platform/
+DEBUG=app:* pnpm run import --repositoryPath ../platform/
 ```
 
 ### Executing a query

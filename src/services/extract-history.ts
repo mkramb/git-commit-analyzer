@@ -3,8 +3,8 @@ import { Readable } from 'stream';
 import { simpleGit, SimpleGit, LogResult } from 'simple-git';
 import createDebug from 'debug';
 
-const debug = createDebug('services:export-history');
-const GIT_OPERATIONS_MAX_CONCURRENCY = +(process.env.MAX_CONCURRENCY ?? 10);
+const debug = createDebug('app:export-history');
+const GIT_OPERATIONS_MAX_CONCURRENCY = +(process.env.MAX_CONCURRENCY ?? 2);
 
 export interface CommitHistory {
   hash: string;
@@ -61,9 +61,7 @@ export const exportHistory = (repositoryPath: string): Readable => {
         try {
           const diffSummary = await git.diffSummary([`${commit.hash}^`, commit.hash]);
           changedFiles = diffSummary.files.map((fileObj) => fileObj.file);
-        } catch (error) {
-          debug(`Error fetching diff for commit ${commit.hash}:`, error);
-        }
+        } catch (error) {}
 
         const info: CommitHistory = {
           hash: commit.hash,

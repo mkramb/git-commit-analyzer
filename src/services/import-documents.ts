@@ -4,7 +4,7 @@ import createDebug from 'debug';
 import { vectorStore } from '../store.js';
 import { CommitHistory } from './extract-history.js';
 
-const debug = createDebug('services:import-document');
+const debug = createDebug('app:import-document');
 
 export const importDocuments = async (commits: CommitHistory[]) => {
   debug('Importing documents', commits.length);
